@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "errorId": 101,
+      "component": "request",
+      "level": "ERROR",
+      "message": "Invalid request received and rejected by event-type-service."
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+Configuration:
+  status: info
+  Properties:
+    Property:
+      - name: logPostFix
+        value: ${sys:logPostFix:-events-service}
+      - name: baseLogDir
+        value: ${sys:logging.baseLogDir:-/tmp}
+      - name: service_loglevel
+        value: ${sys:service_loglevel:-INFO}
+      - name: containerId
+        value: ${env:HOSTNAME:-localhost}
+  Appenders:
+    Console:
+      name: Console
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    RollingFile:
+      name: Application
+      fileName: "${baseLogDir}/${logPostFix}-${containerId}-application.log"
+      filePattern: "${baseLogDir}/${logPostFix}-${containerId}-application-%d{yyyy-MM-dd}-%i.log.gz"
+      JsonLayout:
+        eventEol: true
+        compact: true
+        KeyValuePair:
+          - key: serviceName
+            value: ${logPostFix}
+          - key: correlationId
+            value: $${ctx:correlationId:-}
+      policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+          modulate: true
+
+  Loggers:
+    Logger:
+      name: events-service
+      level: ${service_loglevel}
+      additivity: false
+      AppenderRef:
+        - ref: Console
+        - ref: Application
+    Root:
+      level: ${service_loglevel}
+      AppenderRef:
+        - ref: Console
+        - ref: Application
