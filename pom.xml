@@ -27,7 +27,7 @@
     <version.jacoco>0.8.2</version.jacoco>
     <version.jasypt>2.1.0</version.jasypt>
     <version.sonar>3.2</version.sonar>
-    <version.swagger>2.9.2</version.swagger>
+    <version.swagger>2.10.0</version.swagger>
     <version.wiremock>2.22.0</version.wiremock>
     <version.postgresql>9.4.1212.jre7</version.postgresql>
     <version.jackson>1.9.13</version.jackson>
